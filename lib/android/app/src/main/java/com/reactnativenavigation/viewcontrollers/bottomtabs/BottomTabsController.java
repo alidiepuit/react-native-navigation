@@ -1,6 +1,7 @@
 package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,9 +144,15 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
 
     @Override
     public boolean onTabSelected(int index, boolean wasSelected) {
-        eventEmitter.emitBottomTabSelected(bottomTabs.getCurrentItem(), index);
-        if (wasSelected) return false;
-        selectTab(index);
+        if (tabs.get(index).initialOptions.bottomTabOptions.selectTabOnPress.isTrueOrUndefined()) {
+            Log.d("RNN", "selectTabOnPress true");
+            eventEmitter.emitBottomTabSelected(bottomTabs.getCurrentItem(), index);
+            if (wasSelected) return false;
+            selectTab(index);
+            return false;
+        }
+        Log.d("RNN", "selectTabOnPress false");
+        eventEmitter.emitBottomTabPressed(bottomTabs.getCurrentItem(), index);
         return false;
 	}
 

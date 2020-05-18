@@ -60,6 +60,14 @@
 
 #pragma mark UITabBarControllerDelegate
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if ([[viewController resolveOptions].bottomTab.selectTabOnPress isFalse]) {
+        [self.eventEmitter sendBottomTabPressed:@(tabBarController.selectedIndex) unselected:@(_currentTabIndex)];
+        return false;
+    }
+    return true;
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 	[self.eventEmitter sendBottomTabSelected:@(tabBarController.selectedIndex) unselected:@(_currentTabIndex)];
 	_currentTabIndex = tabBarController.selectedIndex;

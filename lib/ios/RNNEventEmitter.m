@@ -11,6 +11,7 @@ RCT_EXPORT_MODULE();
 static NSString* const AppLaunched				= @"RNN.AppLaunched";
 static NSString* const CommandCompleted			= @"RNN.CommandCompleted";
 static NSString* const BottomTabSelected		= @"RNN.BottomTabSelected";
+static NSString* const BottomTabPressed         = @"RNN.BottomTabPressed";
 static NSString* const ComponentDidAppear		= @"RNN.ComponentDidAppear";
 static NSString* const ComponentDidDisappear	= @"RNN.ComponentDidDisappear";
 static NSString* const NavigationButtonPressed	= @"RNN.NavigationButtonPressed";
@@ -24,6 +25,7 @@ static NSString* const ScreenPopped             = @"RNN.ScreenPopped";
     return @[AppLaunched,
              CommandCompleted,
              BottomTabSelected,
+             BottomTabPressed,
              ComponentDidAppear,
              ComponentDidDisappear,
              NavigationButtonPressed,
@@ -31,7 +33,8 @@ static NSString* const ScreenPopped             = @"RNN.ScreenPopped";
              SearchBarUpdated,
              SearchBarCancelPressed,
              PreviewCompleted,
-             ScreenPopped];
+             ScreenPopped
+    ];
 }
 
 # pragma mark public
@@ -128,6 +131,13 @@ static NSString* const ScreenPopped             = @"RNN.ScreenPopped";
             [self sendOnAppLaunched];
         }
     }
+}
+
+-(void)sendBottomTabPressed:(NSNumber *)selectedTabIndex unselected:(NSNumber*)unselectedTabIndex {
+    [self send:BottomTabPressed body:@{
+                                      @"selectedTabIndex": selectedTabIndex,
+                                      @"unselectedTabIndex": unselectedTabIndex
+                                      }];
 }
 
 # pragma mark private

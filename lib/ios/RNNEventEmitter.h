@@ -26,5 +26,6 @@
 
 - (void)sendScreenPoppedEvent:(NSString *)componentId;
 
+- (void)sendBottomTabPressed:(NSNumber *)selectedTabIndex unselected:(NSNumber*)unselectedTabIndex;
 
 @end
